@@ -1,0 +1,103 @@
+docker volume
+======================================
+
+docker volume temporary
+
+container remove volume also removed 
+
+docker run -d -p 80:80  nginx
+
+/var/lib/docker/overlay2/696967c36b6777df7b1691a7f673d11d8ac3ff1c499a3fd31bb4a2f98663870f/merged/usr/share/nginx/html
+
+root@ip-10-10-0-175:/var/lib/docker/overlay2/696967c36b6777df7b1691a7f673d11d8ac3ff1c499a3fd31bb4a2f98663870f/merged# ls
+bin   dev                  docker-entrypoint.sh  home  lib32  libx32  mnt  proc  run   srv  tmp  var
+boot  docker-entrypoint.d  etc                   lib   lib64  media   opt  root  sbin  sys  usr
+
+
+1fff87fc0c1d8c18b1d2a155cb3912c9d4bbaebf2ba266bd932d0fb4569dc4b2
+56b64205d37c2dc694d33d5fa987b7dc5476b20ebe9810425bfed0c275a11d5b
+6bd7b7fedab7dfdc26a254e570d9c8091b53e9ede6c5aca8fa61ee17edd0c791
+ab63f25dbcd22b828eb65093e72a81a603c7de0ff2f58126d7822ddbe58aa53a
+b0baf2ca9e4328ce1d32c238cbc04d1b575683d1e767eb506a715c4b9be52793
+b0baf2ca9e4328ce1d32c238cbc04d1b575683d1e767eb506a715c4b9be52793-init
+c6de4a03965704c89aacfd60ddd8a315d0479b71f992630b52e547ff512d8a2f
+dc808a4fa0e8f96c93dc7d7f5b8e0610cd110d0deb841958b658e429ff4102b7
+f269ef5522001aff49f720f7ad9583b60ff44182da81f43282215ea0fd8de1c3
+l
+root@ip-10-10-0-175:/var/lib/docker/overlay2# docker container rm 75fae2d07c59
+75fae2d07c59
+root@ip-10-10-0-175:/var/lib/docker/overlay2# ls
+1fff87fc0c1d8c18b1d2a155cb3912c9d4bbaebf2ba266bd932d0fb4569dc4b2
+56b64205d37c2dc694d33d5fa987b7dc5476b20ebe9810425bfed0c275a11d5b
+6bd7b7fedab7dfdc26a254e570d9c8091b53e9ede6c5aca8fa61ee17edd0c791
+ab63f25dbcd22b828eb65093e72a81a603c7de0ff2f58126d7822ddbe58aa53a
+c6de4a03965704c89aacfd60ddd8a315d0479b71f992630b52e547ff512d8a2f
+dc808a4fa0e8f96c93dc7d7f5b8e0610cd110d0deb841958b658e429ff4102b7
+f269ef5522001aff49f720f7ad9583b60ff44182da81f43282215ea0fd8de1c3
+
+
+1fff87fc0c1d8c18b1d2a155cb3912c9d4bbaebf2ba266bd932d0fb4569dc4b2
+56b64205d37c2dc694d33d5fa987b7dc5476b20ebe9810425bfed0c275a11d5b
+6bd7b7fedab7dfdc26a254e570d9c8091b53e9ede6c5aca8fa61ee17edd0c791
+ab63f25dbcd22b828eb65093e72a81a603c7de0ff2f58126d7822ddbe58aa53a
+c6de4a03965704c89aacfd60ddd8a315d0479b71f992630b52e547ff512d8a2f
+dc808a4fa0e8f96c93dc7d7f5b8e0610cd110d0deb841958b658e429ff4102b7
+f269ef5522001aff49f720f7ad9583b60ff44182da81f43282215ea0fd8de1c3
+l
+
+
+====================================================================
+
+docker volume hostpath 
+
+
+docker run -d -p 80:80 -v /root/nginx/:/usr/share/nginx/html nginx
+
+
+ "Name": "/stupefied_leakey",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/root/nginx/:/usr/share/nginx/html"
+
+
+================================================================
+
+docker volume create ls
+docker volume ls
+
+DRIVER    VOLUME NAME
+local     ls
+local     nginx
+
+
+docker run -d -p 80:80 -v --mount src=ls,target=/usr/share/nginx/html nginx
+
+
+--mount src=ls,target=/usr/share/nginx/html
+
+root@ip-10-10-0-175:/var/lib/docker/overlay2# docker volume inspect ls
+[
+    {
+        "CreatedAt": "2024-02-07T14:51:22Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/ls/_data",
+        "Name": "ls",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+
+
+
+
+
+
+
